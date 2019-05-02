@@ -1,3 +1,7 @@
+# my files
+package-lock.json
+config/pwd.js
+
 # Logs
 logs
 *.log
