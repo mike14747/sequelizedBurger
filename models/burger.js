@@ -1,6 +1,10 @@
 module.exports = function (sequelize, DataTypes) {
     var Burger = sequelize.define("burgers", {
-
+        devoured: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0,
+            allowNull: false
+        }
     }, {
         freezeTableName: true
     });

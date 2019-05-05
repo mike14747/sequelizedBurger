@@ -16,7 +16,7 @@
                     <h6 class="text-danger font-weight-bolder">SELECT A PATTY:</h6>
                     {{#each patties}}
                     {{> patties}}
-                    {{/each}} 
+                    {{/each}}
                     <span id="patty_error" class="invisible text-danger"><i
                             class="fas fa-exclamation-circle mr-2"></i>You must select a patty!</span>
                 </div>
@@ -37,9 +37,17 @@
                             class="fas fa-exclamation-circle mr-2"></i>You must select toppings!</span>
                 </div>
             </div>
-            <div class="col-12 p-4 text-center">
-                <button id="order_burger" type="submit" class="btn btn-primary"><i
-                        class="fas fa-hamburger mr-2"></i>Order Burger</button>
+            <div class="form-row align-items-end justify-content-center mb-4">
+                <div class="col-auto">
+                    <span id="customer_name_error" class="invisible text-danger"><i
+                            class="fas fa-exclamation-circle mr-2"></i>You must enter your name!</span><br />
+                    <label for="customer_name" class="font-weight-bolder">Customer Name</label>
+                    <input type="text" class="form-control" id="customer_name" placeholder="Enter name">
+                </div>
+                <div class="col-auto">
+                    <button id="order_burger" type="submit" class="btn btn-primary"><i
+                            class="fas fa-hamburger mr-2"></i>Order Burger</button>
+                </div>
             </div>
         </form>
     </div>
@@ -52,7 +60,8 @@
         {{#unless devoured}}
         <div class="row my-2 p-2 border">
             <div class="col align-self-center">
-                {{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}
+                <p>{{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}</p>
+                <p class="small mb-0">ORDERED BY: {{customer.name}}</p>
             </div>
             <div class="col-lg-auto text-center align-self-center">
                 <button type="submit" class="dev-burger btn-sm btn-info my-3" value="{{id}}"><i
@@ -68,7 +77,8 @@
         {{#if devoured}}
         <div class="row my-2 p-2 border">
             <div class="col align-self-center text-muted font-weight-lighter">
-                {{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}
+                <p>{{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}</p>
+                <p class="small mb-0">ORDERED BY: {{customer.name}}</p>
             </div>
             <div class="col-lg-auto text-center align-self-center">
                 <button type="submit" class="del-burger btn-sm btn-danger my-3" value="{{id}}"><i

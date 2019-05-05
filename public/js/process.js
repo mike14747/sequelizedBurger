@@ -4,12 +4,9 @@ $(document).ready(function () {
 
     $(".dev-burger").on("click", function () {
         var id = $(this).val();
-        var devouredState = {
-            devoured: 1
-        };
         $.ajax("/api/burger/" + id, {
             type: "PUT",
-            data: devouredState
+            data: id
         }).then(
             function () {
                 location.reload();
@@ -56,11 +53,19 @@ $(document).ready(function () {
         } else {
             $("#topping_error").addClass("invisible");
         }
+        if (!$("#customer_name").val().trim().match(/^[a-zA-Z0-9 _-]{1,20}$/)) {
+            errors = true;
+            errorArray.push("Customer Name field was left blank or included special characters!");
+            $("#customer_name_error").removeClass("invisible");
+        } else {
+            $("#customer_name_error").addClass("invisible");
+        }
         if (errors === false) {
             var newOrder = {
-                patty_id: $("[name='patty']:checked").val(),
-                bun_id: $("[name='bun']:checked").val(),
-                topping_id: $("[name='topping']:checked").val()
+                pattyId: $("[name='patty']:checked").val(),
+                bunId: $("[name='bun']:checked").val(),
+                toppingId: $("[name='topping']:checked").val(),
+                name: $("#customer_name").val().trim()
             };
             $("#order_form").trigger("reset");
             $.ajax("/api/burger", {
