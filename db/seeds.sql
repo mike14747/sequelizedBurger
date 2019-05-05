@@ -1,8 +1,8 @@
 SET FOREIGN_KEY_CHECKS=0;
-INSERT INTO burgers (pattyId, bunId, toppingId, customerId) VALUES
-    (1, 1, 1, 2),
-    (2, 2, 3, 1),
-    (3, 3, 5, 3);
+INSERT INTO burgers (pattyId, bunId, toppingId) VALUES
+    (1, 1, 1),
+    (2, 2, 3),
+    (3, 3, 5);
 
 INSERT INTO patties (patty) VALUES
     ('Portobello'),
@@ -22,10 +22,8 @@ INSERT INTO toppings (topping) VALUES
     ('Mushroom and Onion'),
     ('No Toppings');
 
-INSERT INTO customers (name) VALUES
-    ('mike'),
-    ('Billy Bob'),
-    ('Anonymous');
+INSERT INTO customers (name, burgerId) VALUES
+    ('mike', 3),
+    ('Billy Bob', 2),
+    ('Anonymous', 1);
 SET FOREIGN_KEY_CHECKS=1;
-
--- SELECT bg.id, p.patty, bn.bun, t.topping FROM burgers AS bg INNER JOIN buns AS bn ON bg.bun_id=bn.bun_id INNER JOIN patties AS p ON bg.patty_id=p.patty_id INNER JOIN toppings AS t ON bg.topping_id=t.topping_id
