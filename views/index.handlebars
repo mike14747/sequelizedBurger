@@ -1,0 +1,81 @@
+{{> error_modal}}
+
+<div class="row">
+    <div class="col-12 p-4 text-center">
+        <h3>Build your Veggie Burger<span class="small">... pick a patty, a bun and toppings!</span></h3>
+        <h6 class="text-secondary">Add your own condiments / sauces at the condiment bar<span
+                id="hidden_button">.</span></h6>
+    </div>
+</div>
+
+<div class="row border-bottom mb-4">
+    <div class="col-12">
+        <form id="order_form">
+            <div class="row m-0 p-0">
+                <div class="col-4 p-2">
+                    <h6 class="text-danger font-weight-bolder">SELECT A PATTY:</h6>
+                    {{#each patties}}
+                    {{> patties}}
+                    {{/each}} 
+                    <span id="patty_error" class="invisible text-danger"><i
+                            class="fas fa-exclamation-circle mr-2"></i>You must select a patty!</span>
+                </div>
+                <div class="col-4 p-2">
+                    <h6 class="text-danger font-weight-bolder">SELECT A BUN:</h6>
+                    {{#each buns}}
+                    {{> buns}}
+                    {{/each}}
+                    <span id="bun_error" class="invisible text-danger"><i class="fas fa-exclamation-circle mr-2"></i>You
+                        must select a bun!</span>
+                </div>
+                <div class="col-4 p-2">
+                    <h6 class="text-danger font-weight-bolder">SELECT TOPPINGS:</h6>
+                    {{#each toppings}}
+                    {{> toppings}}
+                    {{/each}}
+                    <span id="topping_error" class="invisible text-danger"><i
+                            class="fas fa-exclamation-circle mr-2"></i>You must select toppings!</span>
+                </div>
+            </div>
+            <div class="col-12 p-4 text-center">
+                <button id="order_burger" type="submit" class="btn btn-primary"><i
+                        class="fas fa-hamburger mr-2"></i>Order Burger</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col mx-4">
+        <h4>Burgers waiting to be eaten:</h4>
+        {{#each burgers}}
+        {{#unless devoured}}
+        <div class="row my-2 p-2 border">
+            <div class="col align-self-center">
+                {{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}
+            </div>
+            <div class="col-lg-auto text-center align-self-center">
+                <button type="submit" class="dev-burger btn-sm btn-info my-3" value="{{id}}"><i
+                        class="fas fa-hamburger mr-2"></i>Devour Burger</button>
+            </div>
+        </div>
+        {{/unless}}
+        {{/each}}
+    </div>
+    <div class="col mx-4">
+        <h4>Devoured burgers:</h4>
+        {{#each burgers}}
+        {{#if devoured}}
+        <div class="row my-2 p-2 border">
+            <div class="col align-self-center text-muted font-weight-lighter">
+                {{id}}. {{patty.patty}} burger on a {{bun.bun}} bun with {{topping.topping}}
+            </div>
+            <div class="col-lg-auto text-center align-self-center">
+                <button type="submit" class="del-burger btn-sm btn-danger my-3" value="{{id}}"><i
+                        class="fas fa-trash-alt mr-2"></i>Delete</button>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>
