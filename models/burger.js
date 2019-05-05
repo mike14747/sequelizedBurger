@@ -11,16 +11,19 @@ module.exports = function (sequelize, DataTypes) {
 
     Burger.associate = function (models) {
         Burger.belongsTo(models.patties, {
-            foreignKey: {name: 'pattyId', allowNull: false}
+            foreignKey: {name: 'pattyId', allowNull: false},
+            onDelete: "cascade"
         });
         Burger.belongsTo(models.buns, {
-            foreignKey: {name: 'bunId', allowNull: false}
+            foreignKey: {name: 'bunId', allowNull: false},
+            onDelete: "cascade"
         });
         Burger.belongsTo(models.toppings, {
-            foreignKey: {name: 'toppingId', allowNull: false}
+            foreignKey: {name: 'toppingId', allowNull: false},
+            onDelete: "cascade"
         });
-        Burger.belongsTo(models.customers, {
-            foreignKey: {name: 'customerId', allowNull: false}
+        Burger.hasOne(models.customers, {
+            onDelete: "cascade"
         });
     };
 

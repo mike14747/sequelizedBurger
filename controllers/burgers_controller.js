@@ -51,14 +51,14 @@ router.get("/", (req, res) => {
 });
 
 router.post("/api/burger", (req, res) => {
-    db.customers.create({
-        name: req.body.name
+    db.burgers.create({
+        pattyId: req.body.pattyId,
+        bunId: req.body.bunId,
+        toppingId: req.body.toppingId,
     }).then(function (result) {
-        db.burgers.create({
-            pattyId: req.body.pattyId,
-            bunId: req.body.bunId,
-            toppingId: req.body.toppingId,
-            customerId: result.id
+        db.customers.create({
+            burgerId: result.id,
+            name: req.body.name
         }).then(function (dbBurger) {
             res.json(dbBurger);
         });

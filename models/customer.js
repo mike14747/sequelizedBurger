@@ -16,8 +16,9 @@ module.exports = function (sequelize, DataTypes) {
         });
 
     Customer.associate = function (models) {
-        Customer.hasMany(models.burgers, {
-            onDelete: "cascade",
+        Customer.belongsTo(models.burgers, {
+            foreignKey: {name: 'burgerId', allowNull: false},
+            onDelete: "cascade"
         });
     };
     return Customer;
