@@ -1,6 +1,5 @@
 'use strict';
 
-const pwd = require("../config/pwd.js");
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -13,6 +12,7 @@ let sequelize;
 if (config.use_env_variable) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
+    const pwd = require("../config/pwd.js");
     sequelize = new Sequelize(config.database, config.username, pwd, config);
 }
 
