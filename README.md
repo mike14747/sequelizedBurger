@@ -53,11 +53,11 @@ The above 'config/pwd.js' file was utilized to keep my local MySQL password from
 
 ## About the code in this project:
 
-*  This project is a burger logger with MySQL, Node, Express, Express-Handlebars and uses Sequelize as the ORM.
+* This project is a burger logger with MySQL, Node, Express, Express-Handlebars and uses Sequelize as the ORM.
 * It following the MVC design pattern (with the code/files broken up in models, views and controllers folders).
   * config/config.json: handles the MySQL connection, then exports that connection to models/index.js.
   * The models folder contains all the necessary Sequelize object models (there are 5 in this project). All object models are exported to: controllers/burgers_controller.js.
-  * controllers/burgers_controller.js imports the whole 'modles' folder and handles all the routing... matching specific CRUD requests to their proper Sequelize functions using express.Router()... which is exported to server.js. It also renders express-handlebars pages to the browser when applicable.
+  * controllers/burgers_controller.js imports the whole 'models' folder and handles all the routing... matching specific CRUD requests to their proper Sequelize functions using express.Router()... which is exported to server.js. It also renders express-handlebars pages to the browser when applicable.
   * server.js sets up the server, ties everything together and uses express-handlebars to render the html to the browser.
   * public/js/process.js validates all user input, then performs the appropriate AJAX calls based upon user input. These AJAX calls are looped back into controllers/burgers_controller.js for processing.
 
@@ -168,6 +168,7 @@ and
 ```
 
 The POST route for adding a new burger order was a little tricky because it had to create a new burger, but also return the id of the newly created burger to be inserted in the customers table and associated with that specific burger. I did it this way (with the id being passed as part of then's result argument):
+
 ```
 router.post("/api/burger", (req, res) => {
     db.burgers.create({
@@ -184,6 +185,46 @@ router.post("/api/burger", (req, res) => {
     });
 });
 ```
+
+---
+
+## Sequelize associations in this project:
+
+* The Burger object required 4 sequelize association... 3 of them being 'belongsTo' (which adds foreign keys to each of the patties, buns and toppings tables) and one 'hasOne' association to the customers table... which adds a foreign key to the customers table referencing the butgers table. All of them are set to cascade on delete.
+
+```
+Burger.associate = function (models) {
+    Burger.belongsTo(models.patties, {
+        foreignKey: {name: 'pattyId', allowNull: false},
+        onDelete: "cascade"
+    });
+    Burger.belongsTo(models.buns, {
+        foreignKey: {name: 'bunId', allowNull: false},
+        onDelete: "cascade"
+    });
+    Burger.belongsTo(models.toppings, {
+        foreignKey: {name: 'toppingId', allowNull: false},
+        onDelete: "cascade"
+    });
+    Burger.hasOne(models.customers, {
+        onDelete: "cascade"
+    });
+};
+```
+
+* The intended function of this project was to have each burger ordered to be linked to a customer... with that customer linked only to a specific burger. With that being the case, I could have just added a customer_name field to the burgers table and been done with it. That way, deleting a burger also deletes the customer linked to it. But, what kind of learning moment would that have been?
+* Instead, I decided to link the tables with Sequelize associations and set them to cascade on delete.
+* Here's how I accomplished that in the Customer object's association:
+
+```
+Customer.associate = function (models) {
+    Customer.belongsTo(models.burgers, {
+        foreignKey: {name: 'burgerId', allowNull: false},
+        onDelete: "cascade"
+    });
+};
+```
+
 ---
 
 ## More Info about this project:
