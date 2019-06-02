@@ -10,6 +10,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     Bun.associate = function (models) {
         Bun.hasMany(models.burgers, {
+            foreignKey: {name: 'bunId', allowNull: false},
             onDelete: "cascade"
         });
     };

@@ -10,6 +10,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     Topping.associate = function (models) {
         Topping.hasMany(models.burgers, {
+            foreignKey: {name: 'toppingId', allowNull: false},
             onDelete: "cascade"
         });
     };

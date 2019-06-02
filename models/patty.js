@@ -10,6 +10,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     Patty.associate = function (models) {
         Patty.hasMany(models.burgers, {
+            foreignKey: {name: 'pattyId', allowNull: false},
             onDelete: "cascade"
         });
     };

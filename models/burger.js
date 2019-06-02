@@ -23,6 +23,7 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: "cascade"
         });
         Burger.hasOne(models.customers, {
+            foreignKey: {name: 'burgerId', allowNull: false},
             onDelete: "cascade"
         });
     };

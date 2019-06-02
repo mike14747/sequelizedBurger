@@ -2,7 +2,7 @@
 
 ## What the project does:
 
-* This project allows users, to place custom veggie burger orders by entering their name and picking one thing from each of the following categories:
+* This project allows users to place custom veggie burger orders by entering their name and picking one thing from each of the following categories:
   * Patty type
   * Bun type
   * Topping group
